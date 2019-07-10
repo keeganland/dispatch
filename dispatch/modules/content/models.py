@@ -697,3 +697,8 @@ class PollVote(Model):
     id = UUIDField(default=uuid.uuid4, primary_key=True)
     answer = ForeignKey(PollAnswer, related_name='votes', on_delete=CASCADE)
     timestamp = DateTimeField(auto_now_add=True)
+
+class Node(Publishable):
+    comment_box = ForeignKey('Page', on_delete=SET_NULL, related_name='comment box', blank=True, null=True)
+    title = CharField(max_length=255)
+    tags = ManyToManyField('Tag')
