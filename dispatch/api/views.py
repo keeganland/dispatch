@@ -20,7 +20,7 @@ from dispatch.modules.actions.actions import list_actions, recent_articles
 from dispatch.models import (
     Article, File, Image, ImageAttachment, ImageGallery, Issue,
     Page, Author, Person, Section, Tag, Topic, User, Video,
-    Poll, PollAnswer, PollVote, Invite, Subsection)
+    Poll, PollAnswer, PollVote, Invite, Subsection, Node)
 from dispatch.modules.podcasts.models import Podcast, PodcastEpisode
 
 from dispatch.core.settings import get_settings

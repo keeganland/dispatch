@@ -699,7 +699,36 @@ class PollVote(Model):
     timestamp = DateTimeField(auto_now_add=True)
 
 class Node(Model):
-    title = CharField(max_length=255)
-    tags = ManyToManyField('Tag')
+
     article = ForeignKey(Article, on_delete=SET_NULL, blank=True, null=True, related_name='node_article')
     page = ForeignKey(Page, on_delete=SET_NULL, blank=True, null=True, related_name='node_page')
+    headline = CharField(max_length=255)
+    topic = ForeignKey('Topic', on_delete=SET_NULL, null=True)
+    tags = ManyToManyField('Tag')
+
+    @property
+    def title(self):
+        return self.headline
+
+    def get_related(self):
+        return Article.objects.exclude(pk=self.id).filter(section=self.section,is_published=True).order_by('-published_at')[:5]
+
+    def save_tags(self, tag_ids):
+        self.tags.clear()
+        for tag_id in tag_ids:
+            try:
+                tag = Tag.objects.get(id=int(tag_id))
+                self.tags.add(tag)
+            except Tag.DoesNotExist:
+                pass
+
+    def save_topic(self, topic_id):
+        if topic_id is None:
+            self.topic = None
+        else:
+            try:
+                topic = Topic.objects.get(id=int(topic_id))
+                topic.update_timestamp()
+                self.topic = topic
+            except Topic.DoesNotExist:
+                pass
