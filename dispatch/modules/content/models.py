@@ -703,15 +703,12 @@ class Node(Model):
     article = ForeignKey(Article, on_delete=SET_NULL, blank=True, null=True, related_name='node_article')
     page = ForeignKey(Page, on_delete=SET_NULL, blank=True, null=True, related_name='node_page')
     headline = CharField(max_length=255)
-    topic = ForeignKey('Topic', on_delete=SET_NULL, null=True)
+    snippet = ForeignKey('Snippet', on_delete=SET_NULL, null=True)
     tags = ManyToManyField('Tag')
 
     @property
     def title(self):
         return self.headline
-
-    def get_related(self):
-        return Article.objects.exclude(pk=self.id).filter(section=self.section,is_published=True).order_by('-published_at')[:5]
 
     def save_tags(self, tag_ids):
         self.tags.clear()
@@ -722,13 +719,13 @@ class Node(Model):
             except Tag.DoesNotExist:
                 pass
 
-    def save_topic(self, topic_id):
-        if topic_id is None:
-            self.topic = None
+    def save_snippet(self, snippet_id):
+        if snippet_id is None:
+            self.snippet = None
         else:
             try:
-                topic = Topic.objects.get(id=int(topic_id))
-                topic.update_timestamp()
-                self.topic = topic
-            except Topic.DoesNotExist:
+                snippet = Snippet.objects.get(id=int(snippet_id))
+                snippet.update_timestamp()
+                self.snippet = snippet
+            except Snippet.DoesNotExist:
                 pass
