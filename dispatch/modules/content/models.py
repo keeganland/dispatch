@@ -698,7 +698,8 @@ class PollVote(Model):
     answer = ForeignKey(PollAnswer, related_name='votes', on_delete=CASCADE)
     timestamp = DateTimeField(auto_now_add=True)
 
-class Node(Publishable):
-    comment_box = ForeignKey('Page', on_delete=SET_NULL, related_name='comment box', blank=True, null=True)
+class Node(Model):
     title = CharField(max_length=255)
     tags = ManyToManyField('Tag')
+    article = ForeignKey(Article, on_delete=SET_NULL, blank=True, null=True, related_name='node_article')
+    page = ForeignKey(Page, on_delete=SET_NULL, blank=True, null=True, related_name='node_page')
