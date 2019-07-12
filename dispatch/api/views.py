@@ -659,3 +659,36 @@ class PodcastEpisodeViewSet(DispatchModelViewSet):
             queryset = queryset.filter(podcast_id=podcast)
 
         return queryset
+
+class NodeViewSet(DispatchModelViewSet):
+    """Viewset for Node model views."""
+    model = Node
+    serializer_class = NodeSerializer
+    filter_backends = (filters.OrderingFilter)
+    update_fields = ('tags')
+
+    def get_queryset(self):
+
+        # Get base queryset from DispatchPublishableMixin
+        queryset = self.get_publishable_queryset()
+
+        # Optimize queries by prefetching related data
+        queryset = queryset \
+            .prefetch_related(
+                'tags'
+            )
+
+        queryset = queryset.order_by('-updated_at')
+        q = self.request.query_params.get('q', None)
+        tags = self.request.query_params.getlist('tags', None)
+
+        if tags is not None:
+            for tag in tags:
+                queryset = queryset.filter(tags__id=tag)
+
+        if q is not None:
+            # If a search term (q) is present, filter queryset by term against `title`
+            queryset = queryset.filter(title__icontains=q)
+            
+        return queryset
+
