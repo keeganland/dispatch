@@ -33,7 +33,7 @@ from dispatch.api.serializers import (
     TopicSerializer, PersonSerializer, UserSerializer, IntegrationSerializer,
     ZoneSerializer, WidgetSerializer, TemplateSerializer, VideoSerializer,
     PollSerializer, PollVoteSerializer, InviteSerializer, SubsectionSerializer,
-    PodcastSerializer, PodcastEpisodeSerializer)
+    PodcastSerializer, PodcastEpisodeSerializer, NodeSerializer)
 from dispatch.api.exceptions import (
     ProtectedResourceError, BadCredentials, PollClosed, InvalidPoll,
     UnpermittedActionError)

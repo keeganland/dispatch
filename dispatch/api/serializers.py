@@ -7,7 +7,7 @@ from django.conf import settings
 from dispatch.modules.content.models import (
     Article, Image, ImageAttachment, ImageGallery, Issue,
     File, Page, Author, Section, Tag, Topic, Video,
-    VideoAttachment, Poll, PollAnswer, PollVote, Subsection)
+    VideoAttachment, Poll, PollAnswer, PollVote, Subsection, Node)
 from dispatch.modules.auth.models import Person, User, Invite
 from dispatch.modules.podcasts.models import Podcast, PodcastEpisode
 
@@ -1132,3 +1132,34 @@ class PodcastEpisodeSerializer(DispatchModelSerializer):
             fields += (
                 'file_upload_url',
             )
+
+class NodeSerializer(DispatchModelSerializer):
+    """Serializes the Image model."""
+
+    tags = TagSerializer(many=True, read_only=True)
+    tag_ids = serializers.ListField(
+        write_only=True,
+        required=False,
+        child=serializers.IntegerField())
+
+    class Meta:
+        model = Node
+        fields = (
+            'id',
+            'tags',
+            'tag_ids',
+            'headline',
+            'snippet'
+        )
+
+    def create(self, validated_data):
+        return self.update(Node(), validated_data)
+
+    def update(self, instance, validated_data):
+        instance = super(NodeSerializer, self).update(instance, validated_data)
+
+        tag_ids = validated_data.get('tag_ids', False)
+        if tag_ids != False:
+            instance.save_tags(tag_ids)
+
+        return instance

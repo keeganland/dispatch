@@ -700,10 +700,8 @@ class PollVote(Model):
 
 class Node(Model):
 
-    article = ForeignKey(Article, on_delete=SET_NULL, blank=True, null=True, related_name='node_article')
-    page = ForeignKey(Page, on_delete=SET_NULL, blank=True, null=True, related_name='node_page')
     headline = CharField(max_length=255)
-    snippet = ForeignKey('Snippet', on_delete=SET_NULL, null=True)
+    snippet = TextField(null=True)
     tags = ManyToManyField('Tag')
 
     @property
@@ -717,15 +715,4 @@ class Node(Model):
                 tag = Tag.objects.get(id=int(tag_id))
                 self.tags.add(tag)
             except Tag.DoesNotExist:
-                pass
-
-    def save_snippet(self, snippet_id):
-        if snippet_id is None:
-            self.snippet = None
-        else:
-            try:
-                snippet = Snippet.objects.get(id=int(snippet_id))
-                snippet.update_timestamp()
-                self.snippet = snippet
-            except Snippet.DoesNotExist:
                 pass
