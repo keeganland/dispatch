@@ -7,7 +7,7 @@ from django.conf import settings
 from dispatch.modules.content.models import (
     Article, Image, ImageAttachment, ImageGallery, Issue,
     File, Page, Author, Section, Tag, Topic, Video,
-    VideoAttachment, Poll, PollAnswer, PollVote, Subsection, Node)
+    VideoAttachment, Poll, PollAnswer, PollVote, Subsection, TimelineNode)
 from dispatch.modules.auth.models import Person, User, Invite
 from dispatch.modules.podcasts.models import Podcast, PodcastEpisode
 
@@ -1133,8 +1133,8 @@ class PodcastEpisodeSerializer(DispatchModelSerializer):
                 'file_upload_url',
             )
 
-class NodeSerializer(DispatchModelSerializer):
-    """Serializes the Image model."""
+class TimelineNodeSerializer(DispatchModelSerializer):
+    """Serializes the TimelineNode model."""
 
     tags = TagSerializer(many=True, read_only=True)
     tag_ids = serializers.ListField(
@@ -1143,20 +1143,20 @@ class NodeSerializer(DispatchModelSerializer):
         child=serializers.IntegerField())
 
     class Meta:
-        model = Node
+        model = TimelineNode
         fields = (
             'id',
             'tags',
             'tag_ids',
             'headline',
-            'snippet'
+            'snippet',
         )
 
     def create(self, validated_data):
-        return self.update(Node(), validated_data)
+        return self.update(TimelineNode(), validated_data)
 
     def update(self, instance, validated_data):
-        instance = super(NodeSerializer, self).update(instance, validated_data)
+        instance = super(TimelineNodeSerializer, self).update(instance, validated_data)
 
         tag_ids = validated_data.get('tag_ids', False)
         if tag_ids != False:

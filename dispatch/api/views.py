@@ -20,7 +20,7 @@ from dispatch.modules.actions.actions import list_actions, recent_articles
 from dispatch.models import (
     Article, File, Image, ImageAttachment, ImageGallery, Issue,
     Page, Author, Person, Section, Tag, Topic, User, Video,
-    Poll, PollAnswer, PollVote, Invite, Subsection, Node)
+    Poll, PollAnswer, PollVote, Invite, Subsection, TimelineNode)
 from dispatch.modules.podcasts.models import Podcast, PodcastEpisode
 
 from dispatch.core.settings import get_settings
@@ -33,7 +33,7 @@ from dispatch.api.serializers import (
     TopicSerializer, PersonSerializer, UserSerializer, IntegrationSerializer,
     ZoneSerializer, WidgetSerializer, TemplateSerializer, VideoSerializer,
     PollSerializer, PollVoteSerializer, InviteSerializer, SubsectionSerializer,
-    PodcastSerializer, PodcastEpisodeSerializer, NodeSerializer)
+    PodcastSerializer, PodcastEpisodeSerializer, TimelineNodeSerializer)
 from dispatch.api.exceptions import (
     ProtectedResourceError, BadCredentials, PollClosed, InvalidPoll,
     UnpermittedActionError)
@@ -660,35 +660,22 @@ class PodcastEpisodeViewSet(DispatchModelViewSet):
 
         return queryset
 
-class NodeViewSet(DispatchModelViewSet):
-    """Viewset for Node model views."""
-    model = Node
-    serializer_class = NodeSerializer
-    filter_backends = (filters.OrderingFilter)
-    update_fields = ('tags')
+class TimelineNodeViewSet(DispatchModelViewSet):
+    """Viewset for TimelineNode model views."""
+    model = TimelineNode
+    serializer_class = TimelineNodeSerializer
 
     def get_queryset(self):
+        queryset = TimelineNode.objects.all()
 
-        # Get base queryset from DispatchPublishableMixin
-        queryset = self.get_publishable_queryset()
-
-        # Optimize queries by prefetching related data
-        queryset = queryset \
-            .prefetch_related(
-                'tags'
-            )
-
-        queryset = queryset.order_by('-updated_at')
-        q = self.request.query_params.get('q', None)
         tags = self.request.query_params.getlist('tags', None)
+        q = self.request.query_params.get('q', None)
 
         if tags is not None:
             for tag in tags:
                 queryset = queryset.filter(tags__id=tag)
 
         if q is not None:
-            # If a search term (q) is present, filter queryset by term against `title`
-            queryset = queryset.filter(title__icontains=q)
-            
-        return queryset
+            queryset = queryset.filter(Q(headline__icontains=q))
 
+        return queryset

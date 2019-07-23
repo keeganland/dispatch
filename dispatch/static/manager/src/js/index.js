@@ -99,6 +99,12 @@ render((
             <Route path=':videoId' component={Pages.Videos.Video} />
           </Route>
 
+          <Route path='timeline-nodes'>
+            <IndexRoute component={Pages.TimelineNodes.Index} />
+            <Route path='new' component={Pages.TimelineNodes.NewTimelineNode} />
+            <Route path=':timelineNodeId' component={Pages.TimelineNodes.TimelineNode} />
+          </Route>
+
           <Route path='polls'>
             <IndexRoute component={Pages.Polls.Index} />
             <Route path='new' component={Pages.Polls.NewPoll} />

@@ -17,6 +17,7 @@ import * as Persons from './Persons'
 import * as Images from './Images'
 import * as Events from './Events'
 import * as Videos from './Videos'
+import * as TimelineNodes from './TimelineNodes'
 import * as Polls from './Polls'
 import * as Podcasts from './Podcasts'
 
@@ -39,6 +40,7 @@ export {
   Persons as Persons,
   Events as Events,
   Videos as Videos,
+  TimelineNodes as TimelineNodes,
   Polls as Polls,
   Podcasts as Podcasts
 }

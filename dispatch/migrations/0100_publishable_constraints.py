@@ -56,7 +56,7 @@ def remove_duplicates(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dispatch', '0024_full_name_slug_required'),
+        ('dispatch', '0025_create_timeline_node'),
     ]
 
     operations = [

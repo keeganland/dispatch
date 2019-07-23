@@ -33,7 +33,6 @@ export default function ItemListTable(props) {
         emptyMessage={props.emptyMessage} />
     )
   } else {
-
     const items = props.items.ids.map( id => {
       let item = props.entities[id]
       return (

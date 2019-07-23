@@ -20,6 +20,7 @@ export const POLLS = resourceActionTypes('POLLS')
 export const SUBSECTIONS = resourceActionTypes('SUBSECTIONS')
 export const PODCASTS = resourceActionTypes('PODCASTS')
 export const PODCAST_EPISODES = resourceActionTypes('PODCAST_EPISODES')
+export const TIMELINE_NODES = resourceActionTypes('TIMELINE_NODES')
 
 // Authentication actions
 export const AUTH = actionTypes('AUTH', [

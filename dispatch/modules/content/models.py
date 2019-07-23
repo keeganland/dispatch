@@ -698,7 +698,7 @@ class PollVote(Model):
     answer = ForeignKey(PollAnswer, related_name='votes', on_delete=CASCADE)
     timestamp = DateTimeField(auto_now_add=True)
 
-class Node(Model):
+class TimelineNode(Model):
 
     headline = CharField(max_length=255)
     snippet = TextField(null=True)

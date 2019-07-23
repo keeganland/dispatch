@@ -21,6 +21,7 @@ import widgetsReducer from './WidgetsReducer'
 import eventsReducer from './EventsReducer'
 import userReducer from './UserReducer'
 import videosReducer from './VideosReducer'
+import timelineNodesReducer from './TimelineNodesReducer'
 import podcastsReducer from './PodcastsReducer'
 import podcastEpisodesReducer from './PodcastEpisodesReducer'
 import settingsReducer from './SettingsReducer'
@@ -53,6 +54,7 @@ export default combineReducers({
   users: userReducer,
   invites: invitesReducer,
   videos: videosReducer,
+  timeline_nodes: timelineNodesReducer,
   podcasts: podcastsReducer,
   podcastEpisodes: podcastEpisodesReducer,
   settings: settingsReducer,

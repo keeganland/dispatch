@@ -27,7 +27,12 @@ export const links = [
         text: 'Subsections',
         url: '/subsections/',
         icon: 'column-layout'
-      }
+      },
+      {
+        text: 'Timeline-Nodes',
+        url: '/timeline-nodes/',
+        icon: 'comment-dots'
+      },
     ]
   },
   {

@@ -21,7 +21,6 @@ export default class ItemList extends React.Component {
 
   render() {
     const hasFilters = !!this.props.filters
-
     return (
       <div className='c-item-list'>
         <ItemListHeader

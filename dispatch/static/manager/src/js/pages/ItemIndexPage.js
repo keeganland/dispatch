@@ -92,6 +92,7 @@ export default class ListItemsPageComponent extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     // The first column will always be a link, as defined here,
     // containing the item property associated with displayColumn
     const columns = this.props.columns || R.insert(0, item => (

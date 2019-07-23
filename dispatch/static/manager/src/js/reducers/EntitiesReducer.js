@@ -30,11 +30,13 @@ const initialState = {
   zones: {},
   widgets: {},
   events: {},
+  videos: {},
   local: {
     articles: {},
     subsections: {},
     images: {},
     sections: {},
+    videos: {},
     galleries: {},
     zones: {}
   }

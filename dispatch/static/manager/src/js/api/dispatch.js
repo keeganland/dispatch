@@ -539,7 +539,24 @@ const DispatchAPI = {
         return deleteRequest('podcasts/episodes', id, null, token)
       },
     }
-  }
+  },
+  timeline_nodes: {
+    list: (token, query) => {
+      return getRequest('timeline-nodes', null, query, token)
+    },
+    get: (token, timelineNodeId) => {
+      return getRequest('timeline-nodes', timelineNodeId, null, token)
+    },
+    save: (token, timelineNodeId, data) => {
+      return patchRequest('timeline-nodes', timelineNodeId, data, token)
+    },
+    create: (token, data) => {
+      return postRequest('timeline-nodes', null, data, token)
+    },
+    delete: (token, timelineNodeId) => {
+      return deleteRequest('timeline-nodes', timelineNodeId, null, token)
+    },
+  },
 }
 
 export default DispatchAPI
