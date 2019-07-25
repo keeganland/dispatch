@@ -28,11 +28,18 @@ export default function TimelineNodeForm(props) {
           onChange={e => props.update('snippet', e.target.value)} />
       </Form.Input>
 
+      <Form.Input label='Snippet'>
+        <DateTimeInput
+          hidden={false}
+          value={props.listItem.date}
+          onChange={dt => props.update('date', dt)} />
+      </Form.Input>
+
       <Form.Input
         label='Tags'
         error={props.errors.tag_ids}>
         <TagSelectInput
-          value={props.listItem.tags ? props.listItem.tags: []}
+          value={props.listItem.tags || []}
           update={tags => props.update('tags', tags)} />
       </Form.Input>
 

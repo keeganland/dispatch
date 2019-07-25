@@ -340,3 +340,26 @@ class DispatchTestHelpers(object):
         url = reverse('api-polls-list')
 
         return client.post(url, data, format='json')
+
+    @classmethod
+    def create_timeline_node(cls, client, headline='test headline', snippet='this is a test snippet' ):
+        """Create a dummy timeline node instance"""
+
+        data = {
+            'headline': headline,
+            'snippet': snippet
+        }
+
+        url = reverse('api-timeline-nodes-list')
+
+        return client.post(url, data, format='json')
+
+    @classmethod
+    def update_timeline_node(cls, client, timelineNodeId=None, updatedProperty='headline', value='updatedHeadline' ):
+        """Update a dummy timeline node instance"""
+        data = {}
+        data[updatedProperty] = value
+
+        url = reverse('api-timeline-nodes-detail', args=[timelineNodeId])
+
+        return client.patch(url, data, format='json')

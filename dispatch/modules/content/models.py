@@ -702,11 +702,8 @@ class TimelineNode(Model):
 
     headline = CharField(max_length=255)
     snippet = TextField(null=True)
+    date = DateTimeField(auto_now_add=True)
     tags = ManyToManyField('Tag')
-
-    @property
-    def title(self):
-        return self.headline
 
     def save_tags(self, tag_ids):
         self.tags.clear()

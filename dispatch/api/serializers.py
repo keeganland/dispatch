@@ -1136,6 +1136,10 @@ class PodcastEpisodeSerializer(DispatchModelSerializer):
 class TimelineNodeSerializer(DispatchModelSerializer):
     """Serializes the TimelineNode model."""
 
+    headline = serializers.CharField(required=True, allow_null=False, allow_blank=False)
+    snippet = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    date = serializers.DateTimeField()
+
     tags = TagSerializer(many=True, read_only=True)
     tag_ids = serializers.ListField(
         write_only=True,
@@ -1150,6 +1154,7 @@ class TimelineNodeSerializer(DispatchModelSerializer):
             'tag_ids',
             'headline',
             'snippet',
+            'date'
         )
 
     def create(self, validated_data):

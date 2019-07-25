@@ -1,9 +1,9 @@
-import TimelineNodeIndexPage from './TimelineNodeIndexPage'
+import TimelineNodesIndexPage from './TimelineNodeIndexPage'
 import TimelineNodePage from './TimelineNodePage'
 import NewTimelineNodePage from './NewTimelineNodePage'
 
 export {
-  TimelineNodeIndexPage as Index,
+  TimelineNodesIndexPage as Index,
   TimelineNodePage as TimelineNode,
   NewTimelineNodePage as NewTimelineNode
 }
