@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    listListItems: (token, query) => {      
+    listListItems: (token, query) => {    
       dispatch(TimelineNodesActions.list(token, query))
     },
     toggleListItem: (timelineNodeId) => {

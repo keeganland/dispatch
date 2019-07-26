@@ -28,7 +28,7 @@ export default function TimelineNodeForm(props) {
           onChange={e => props.update('snippet', e.target.value)} />
       </Form.Input>
 
-      <Form.Input label='Snippet'>
+      <Form.Input label='Timeline Date'>
         <DateTimeInput
           hidden={false}
           value={props.listItem.date}
