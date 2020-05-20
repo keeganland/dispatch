@@ -87,5 +87,8 @@
     "start": "webpack --watch --config webpack.dev.config.js",
     "start-lite": "webpack --config webpack.dev.config.js",
     "build": "webpack -p --config webpack.config.js"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
   }
 }
